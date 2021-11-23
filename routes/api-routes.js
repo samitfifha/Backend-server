@@ -13,6 +13,10 @@ router.get('/', function (req, res) {
 // Import contact controller
 var userController = require('../Controller/userController');
 // Contact routes
+router.route('/panier')
+    .post(userController.panier)
+    router.route('/panier')
+    .patch(userController.deleteP)
 router.route('/login')
     .post(userController.login)
 router.route('/users')

@@ -2,7 +2,6 @@
 var bcrypt = require('bcryptjs');
 var jwt = require("jsonwebtoken");
 User = require('../Models/user');
-Produit = require('../Models/product')
 // Handle index actions
 exports.index = function (req, res) {
     User.get(function (err, users) {
@@ -155,64 +154,6 @@ res.json({
         });
     });
 };
-
-//////ajout panier
-exports.panier =  async (req, res) => {
-  
-  User.findById(req.body.userId, function (err, user) {
-          if (err)
-              res.send(err);
-      productId = req.body.productId;
-      
-  // save the contact and check for errors
-          Produit.findById(productId, function(error, product){
-            if (product != null){
-              user.panier.push(product);
-            }
-            user.save(function(err){
-              if (err)
-                res.json(err);
-              res.json({
-                message: 'Product successfully added to cart',
-                data: user
-              })
-            })
-
-          });
-      });
-  };
-
-/// supprimer un produit du panier
-  exports.deleteP =  async (req, res) => {
-  
-    User.findById(req.body.userId, function (err, user) {
-            if (err)
-                res.send(err);
-        productId = req.body.productId;
-        
-    // save the contact and check for errors
-            Produit.findById(productId, function(error, product){
-              for(let i = 0; i< user.panier.length; i++){
-                if(user.panier[i] == product){
-                  user.panier[i] = null;
-                  break;
-                }
-              }
-              user.save(function(err){
-                if (err)
-                  res.json(err);
-                res.json({
-                  message: 'Product successfully removed from cart',
-                  data: user
-                })
-              })
-  
-            
-        });
-    });
-  }
-
-
 
 
 

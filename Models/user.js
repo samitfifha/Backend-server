@@ -9,6 +9,11 @@ const userSchema = mongoose.Schema({
     adress: { type: String, required:true},
     role: { type:String, required:true},
     token: { type:String},
+    panier:[{
+        type:String,
+        required:false,
+        
+    }]
 });
 
 module.exports = mongoose.model('user', userSchema);
