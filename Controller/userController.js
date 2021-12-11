@@ -25,7 +25,7 @@ exports.new = async (req, res)=> {
     const { firstname, lastname, email, password, phone, adress, role} = req.body;
 
     // Validate user input
-    if (!(firstname && lastname && email && password && phone && adress && role)) {
+    if (!(firstname && lastname && email && password && phone && adress)) {
       res.status(400).send("All input is required");
     }
 
