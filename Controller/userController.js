@@ -48,7 +48,9 @@ exports.new = async (req, res)=> {
       password: encryptedPassword,
       phone,
       adress,
-      role
+      role,
+      image: req.file.path
+
     });
 
     // Create token

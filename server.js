@@ -32,15 +32,10 @@ app.get('/', (req, res) => res.send('Hello World with Express'));
 
 // Use Api routes in the App
 app.use('/api', apiRoutes);
+
+app.use('/uploads',express.static('uploads'))
+
 // Launch app to listen to specified port
 app.listen(port, function () {
     console.log("Running on port " + port);
 });
-    
-
-
-
-
-
-
-
