@@ -36,24 +36,28 @@ var userController = require('../Controller/userController');
 // Contact routes
 router.route('/panier')
     .post(userController.panier)
-    router.route('/panier')
-    .patch(userController.deleteP)
+    router.route('/panier/:user_id')
+    .get(userController.getPanier)
+    .patch(userController.deleteP);
 router.route('/login')
-    .post(userController.login)
+    .post(userController.login);
 router.route('/users')
-    .get(auth,userController.index)
+    .get(userController.index)
     .post(upload.single('image'),userController.new);
 router.route('/users/:user_id')
     .get(userController.view)
     .patch(userController.update)
-    .put(userController.update)
+    .put(upload.single('image'),userController.pic)
     .delete(userController.delete);
+router.route('/users/profile/:_id')
+    .get(userController.viewP);
+    
 
     var productController = require('../Controller/productController');
     // Contact routes
     router.route('/products')
         .get(productController.index)
-        .post(productController.new);
+        .post(upload.single('image'),productController.new);
     router.route('/products/:product_id')
         .get(productController.view)
         .patch(productController.update)

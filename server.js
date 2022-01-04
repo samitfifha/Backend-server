@@ -14,6 +14,8 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/uploads/'));
+
 // Connect to Mongoose and set connection variable
 mongoose.connect('mongodb+srv://clickmode1:clickmode12345@cluster0.mmhxe.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', { useNewUrlParser: true});
 var db = mongoose.connection;

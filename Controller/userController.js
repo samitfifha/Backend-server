@@ -3,6 +3,30 @@ var bcrypt = require('bcryptjs');
 var jwt = require("jsonwebtoken");
 User = require('../Models/user');
 Produit = require('../Models/product')
+
+
+
+//update pic 
+exports.pic = async (req, res) => {
+  User.findById(req.params.user_id, function (err, user) {
+          if (err)
+              res.send(err);
+          user.image = req.file.path
+  // save the contact and check for errors
+          user.save(function (err) {
+              if (err)
+                  res.json(err);
+              res.json({
+                  message: 'photo updated successfully',
+                  data: user
+              });
+          });
+      });
+  };
+
+
+
+
 // Handle index actions
 exports.index = function (req, res) {
     User.get(function (err, users) {
@@ -129,7 +153,7 @@ User.findById(req.params.user_id, function (err, user) {
         user.firstname = req.body.firstname ? req.body.firstname : user.firstname;
     user.lastname = req.body.lastname;
     user.email = req.body.email;
-    user.password = req.body.password;
+    //user.password = req.body.password;
     user.phone = req.body.phone;
     user.adress = req.body.adress;
 	user.role = req.body.role;
@@ -169,14 +193,13 @@ exports.panier =  async (req, res) => {
   // save the contact and check for errors
           Produit.findById(productId, function(error, product){
             if (product != null){
-              user.panier.push(product);
+              user.panier.push(productId);
             }
             user.save(function(err){
               if (err)
                 res.json(err);
               res.json({
-                message: 'Product successfully added to cart',
-                data: user
+                message: 'Product successfully added to cart'
               })
             })
 
@@ -212,7 +235,29 @@ exports.panier =  async (req, res) => {
             
         });
     });
+
   }
+
+  exports.getPanier = function (req, res) {
+    User.findById(req.params.user_id, function (err, user) {
+        if (err)
+            res.send(err);
+        res.status(201).json(user.panier);
+    });
+};
+  
+
+  exports.viewP = function (req, res) {
+    User.findById(req.params._id, function (err, user) {
+        if (err)
+            res.send(err);
+        res.status(201).json(user);
+    });
+};
+
+
+
+  
 
 
 
